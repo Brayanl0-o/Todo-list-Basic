@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Todo list</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Todo list</h1>
+        <form action="/" method="POST" autocomplete="off">
+            <input type="text" placeholder="Add todos..." name="todoValue" required>
+            <button type="submit">Add</button>
+
+        </form>
+
+        <% if(data) { %>
+            <% data.forEach(todoValue=> {%>
+                <div class="todo-container">
+                    <div class="todo-value">
+                        <%= todoValue.todo %>
+                    </div>
+                    <div>
+                        <a class="todo-delete <%= todoValue.id %>">Delete</a>
+                        <a class="todo-edit <%= todoValue.id %>">Edit</a>
+                    </div>
+
+                    <form class="todo-edit-form <%= todoValue.id %>" style="display: none;"><input type="text"
+                            name="updatedTodo" value="<%= todoValue.todo %>" required style="flex-grow: 1;"><button
+                            type="submit">Update</button>
+                    </form>
+
+                </div>
+                <% })%>
+                    <% } %>
+    </div>
+
+
+    <script>
+        const editButton = document.querySelectorAll('.todo-edit');
+        const editForms = document.querySelectorAll('.todo-edit-form');
+
+        editButton.forEach((button, i) => {
+            button.addEventListener('click', () => {
+                button.style.display = 'none';
+                editForms[i].style.display = 'block';
+            });
+        });
+
+        editForms.forEach((form, i) => {
+            form.addEventListener('submit', (event) => {
+                event.preventDefault();
+                const updatedTodo = form.querySelector('input[name="updatedTodo"]').value;
+                const endPoint = `/${form.classList[1]}/update`;
+
+                fetch(endPoint, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ updatedTodo })
+                })
+                    .then(response => {
+                        window.location.href = '/';
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
+            });
+        });
+    </script>
+    <script>
+        const deleteButton = document.querySelectorAll(".todo-delete")
+
+        deleteButton.forEach((button, i) => {
+            button.addEventListener("click", () => {
+                const endPoint = `/${button.classList[1]}`
+                fetch(endPoint, {
+                    method: "DELETE"
+                })
+                window.location.href = "/"
+            })
+        })
+    </script>
+</body>
+
+</html>

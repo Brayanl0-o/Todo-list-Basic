@@ -1,0 +1,13 @@
+# Ignore directory
+node_modules/
+
+# Ignore file .env donde se encuentra la url de conexion a la base de datos
+.env
+
+# Ignore log files and data generated during execution
+logs/
+data/
+
+# Ignore automatically compiled or generated files
+*.log
+*.zip
