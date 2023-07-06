@@ -1,9 +1,10 @@
 # Todo-list-Basic
+![Alt text](image.png)
 
-Esta es una lista de tareas esta hecha con Express.js, Node.js, MongoDB y JavaScript
+Esta es aplicacion web de una pagina, que proporciona una interfaz de lista de tareas esta hecha con Express.js, Node.js, MongoDB y JavaScript
 
 
-En la pagina index.js se encuentran concatenados las rutas y controlladores de las acciones basicas CRU.
+En el archivo index.js se encuentran concatenados las rutas y controlladores de las acciones basicas CRUD.
 
 
 Se utiliza bodyParser para la recepcion y conversion de los datos enviados desde el archivo ejs, y poder mostrar una view de la lista de tareas, en donde se puede:
